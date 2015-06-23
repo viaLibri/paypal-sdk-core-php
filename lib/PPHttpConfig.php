@@ -42,6 +42,13 @@ class PPHttpConfig {
 		$this->url = $url;
 		$this->method = $method;
 		$this->curlOptions = self::$DEFAULT_CURL_OPTS;
+		 // Update the Cipher List based on OpenSSL or NSS settings
+	        $curl = curl_version();
+	        $sslVersion = isset($curl['ssl_version']) ? $curl['ssl_version'] : '';
+	        if (substr_compare($sslVersion, "NSS/", 0, strlen("NSS/")) === 0) {
+	            //Remove the Cipher List for NSS
+	            $this->removeCurlOption(CURLOPT_SSL_CIPHER_LIST);
+	        }
 	}
 	
 	public function getUrl() {
