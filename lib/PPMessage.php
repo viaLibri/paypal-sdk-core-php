@@ -60,12 +60,13 @@ abstract class PPMessage
 		$map = PPUtils::lowerKeys($map);
 
 		foreach (get_object_vars($this) as $property => $defaultValue) {
-			if (array_key_exists($propKey = strtolower($prefix . $property), $map) &&
-					$this->isBuiltInType(($type = PPUtils::propertyType($this, $property)))){
-				$type = PPUtils::propertyType($this, $property);				
-				$this->{$property} = urldecode($map[$propKey]);
-				continue; // string
-
+		            $propKey = strtolower($prefix . $property);
+		            if ($this->isBuiltInType(($type = PPUtils::propertyType($this, $property)))){
+		                $type = PPUtils::propertyType($this, $property);
+		                if (array_key_exists($propKey, $map)){
+		                    $this->{$property} = urldecode($map[$propKey]);
+		                }
+		                continue; // string
 			} elseif (!$filtered = PPUtils::filterKeyPrefix($map, $propKey)) {
 				continue; // NULL
 			}
