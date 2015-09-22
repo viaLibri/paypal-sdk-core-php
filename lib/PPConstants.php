@@ -14,6 +14,6 @@ class PPConstants {
     const MERCHANT_LIVE_CERT_ENDPOINT = "https://api.paypal.com/2.0";
     const PLATFORM_LIVE_ENDPOINT = "https://svcs.paypal.com/";
     const REST_LIVE_ENDPOINT = "https://api.paypal.com/";
-    const IPN_LIVE_ENDPOINT = "https://ipnpb.paypal.com/cgi-bin/webscr";
+    const IPN_LIVE_ENDPOINT = "https://www.paypal.com/cgi-bin/webscr";
     const OPENID_REDIRECT_LIVE_URL = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
 }
