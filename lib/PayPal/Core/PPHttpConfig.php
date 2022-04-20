@@ -217,7 +217,7 @@ class PPHttpConfig
      *
      * @return array
      */
-    public function getHttpConstantsFromConfigs($configs = array(), $prefix)
+    public function getHttpConstantsFromConfigs($configs, $prefix)
     {
         $arr = array();
         if ($prefix != null && is_array($configs)) {
