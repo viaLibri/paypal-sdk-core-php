@@ -1,10 +1,11 @@
 <?php 
+use PHPUnit\Framework\TestCase;
 use PayPal\Auth\Openid\PPOpenIdAddress;
 /**
  * Test class for PPOpenIdAddress.
  *
  */
-class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
+class PPOpenIdAddressTest extends TestCase {
 	
 	private $addr;
 
@@ -12,7 +13,7 @@ class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp() {
+	protected function setUp(): void {
 		$this->addr = self::getTestData();
 	}
 	
@@ -20,7 +21,7 @@ class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 	

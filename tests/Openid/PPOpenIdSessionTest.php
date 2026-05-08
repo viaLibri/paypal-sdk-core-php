@@ -1,18 +1,19 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Common\PPApiContext;
 use PayPal\Auth\Openid\PPOpenIdSession;
 /**
  * Test class for PPOpenIdSession.
  *
  */
-class PPOpenIdSessionTest extends \PHPUnit_Framework_TestCase {
+class PPOpenIdSessionTest extends TestCase {
 	
 	private $context;
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->context = new PPApiContext(
 			array(
@@ -27,7 +28,7 @@ class PPOpenIdSessionTest extends \PHPUnit_Framework_TestCase {
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 	

@@ -1,18 +1,19 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Common\PPApiContext;
 use PayPal\Core\PPConstants;
 use PayPal\Core\PPHttpConfig;
 use PayPal\Core\PPRequest;
 use PayPal\Handler\PPOpenIdHandler;
 
-class PPOpenIdHandlerTest extends PHPUnit_Framework_TestCase {
-	
-	protected function setup() {
-		
+class PPOpenIdHandlerTest extends TestCase {
+
+	protected function setUp(): void {
+
 	}
-	
-	protected function tearDown() {
-	
+
+	protected function tearDown(): void {
+
 	}
 	
 	/**
@@ -22,8 +23,8 @@ class PPOpenIdHandlerTest extends PHPUnit_Framework_TestCase {
 		$httpConfig = new PPHttpConfig();
 		$apiContext = new PPApiContext(array('mode' => 'unknown', 'acct1.ClientId' => 'clientId', 'acct1.ClientSecret' => 'clientSecret'));
 		$handler = new PPOpenIdHandler();
-	
-		$this->setExpectedException('PayPal\Exception\PPConfigurationException');
+
+		$this->expectException('PayPal\Exception\PPConfigurationException');
 		$handler->handle($httpConfig, 'payload', array('path' => '/path', 'apiContext' => $apiContext));
 		
 		
@@ -32,6 +33,8 @@ class PPOpenIdHandlerTest extends PHPUnit_Framework_TestCase {
 		$handler = new PPOpenIdHandler($apiContext);
 		
 		$this->setExpectedException('PayPal\Exception\PPConfigurationException');
+
+		$this->expectException('PayPal\Exception\PPConfigurationException');
 		$handler->handle($httpConfig, 'payload', array('path' => '/path', 'apiContext' => $apiContext));
 	}
 	
@@ -46,8 +49,9 @@ class PPOpenIdHandlerTest extends PHPUnit_Framework_TestCase {
 		$handler->handle($httpConfig, 'payload', array('apiContext' => $apiContext));
 		
 		$this->assertArrayHasKey('Authorization', $httpConfig->getHeaders());
-		$this->assertArrayHasKey('User-Agent', $httpConfig->getHeaders());			
-		$this->assertContains('PayPalSDK', $httpConfig->getHeader('User-Agent'));
+
+		$this->assertArrayHasKey('User-Agent', $httpConfig->getHeaders());
+		$this->assertStringContainsString('PayPalSDK', $httpConfig->getHeader('User-Agent'));
 	}
 	
 	/**
@@ -89,7 +93,7 @@ class PPOpenIdHandlerTest extends PHPUnit_Framework_TestCase {
 		$handler = new PPOpenIdHandler();
 		
 		$handler->handle($httpConfig, 'payload', array('path' => '/path', 'apiContext' => $apiContext));
-		$this->assertEquals("${customEndpoint}path", $httpConfig->getUrl());
+		$this->assertEquals("{$customEndpoint}path", $httpConfig->getUrl());
 		
 		
 		$customEndpoint = 'http://mydomain';

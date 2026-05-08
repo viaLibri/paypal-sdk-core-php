@@ -1,17 +1,18 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 use PayPal\Handler\PPGenericServiceHandler;
 use PayPal\Core\PPHttpConfig;
 use PayPal\Core\PPRequest;
 
-class PPGenericServiceHandlerTest extends PHPUnit_Framework_TestCase {
-	
-	protected function setup() {
-		
+class PPGenericServiceHandlerTest extends TestCase {
+
+	protected function setUp(): void {
+
 	}
-	
-	protected function tearDown() {
-	
+
+	protected function tearDown(): void {
+
 	}
 	
 	/**
@@ -52,7 +53,7 @@ class PPGenericServiceHandlerTest extends PHPUnit_Framework_TestCase {
 
 		$headers = $httpConfig->getHeaders();
 		$this->assertArrayHasKey('X-PAYPAL-REQUEST-SOURCE', $headers);
-		$this->assertRegExp('/.*sdkname.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
-		$this->assertRegExp('/.*sdkversion.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
+		$this->assertMatchesRegularExpression('/.*sdkname.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
+		$this->assertMatchesRegularExpression('/.*sdkversion.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
 	}
 }

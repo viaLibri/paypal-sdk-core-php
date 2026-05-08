@@ -1,11 +1,12 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Core\PPRequest;
 use PayPal\Formatter\PPNVPFormatter;
-class PPNVPFormatterTest extends PHPUnit_Framework_TestCase {
+class PPNVPFormatterTest extends TestCase {
 	
 	private $object;
-	
-	public function setup() {
+
+	public function setUp(): void {
 		$this->object = new PPNVPFormatter();
 	}
 	/**
@@ -22,7 +23,7 @@ class PPNVPFormatterTest extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testInvalidCall() {
-		$this->setExpectedException('BadMethodCallException');
+		$this->expectException('BadMethodCallException');
 		$this->object->toObject('somestring');
 	}
 }

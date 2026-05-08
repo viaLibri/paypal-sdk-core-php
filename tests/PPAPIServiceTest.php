@@ -1,4 +1,5 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 require_once 'Mocks.php';
 
@@ -11,7 +12,7 @@ use PayPal\Common\PPApiContext;
  * Test class for PPAPIService.
  *
  */
-class PPAPIServiceTest extends \PHPUnit_Framework_TestCase
+class PPAPIServiceTest extends TestCase
 {
     /**
      * @var PPAPIService
@@ -46,7 +47,7 @@ class PPAPIServiceTest extends \PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new PPAPIService(null, 'Invoice', 'NV', new PPApiContext($this->config), array());
     }
@@ -55,7 +56,7 @@ class PPAPIServiceTest extends \PHPUnit_Framework_TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -74,7 +75,7 @@ class PPAPIServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeRequestWithoutHandlers() {
     	$this->object->setServiceName('Invoice');
-    	$this->setExpectedException('PayPal\Exception\PPConnectionException');
+    	$this->expectException('PayPal\Exception\PPConnectionException');
 	$req = new PPRequest(new MockNVPClass(), "NV");
 	$this->object->makeRequest('GetInvoiceDetails', $req);
     }
