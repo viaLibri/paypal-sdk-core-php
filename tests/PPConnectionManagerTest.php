@@ -1,4 +1,5 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Core\PPConnectionManager;
 use PayPal\Core\PPHttpConnection;
 use PayPal\Core\PPHttpConfig;
@@ -6,7 +7,7 @@ use PayPal\Core\PPHttpConfig;
  * Test class for PPConnectionManager.
  *
  */
-class PPConnectionManagerTest extends \PHPUnit_Framework_TestCase
+class PPConnectionManagerTest extends TestCase
 {
     /**
      * @var PPConnectionManager
@@ -41,7 +42,7 @@ class PPConnectionManagerTest extends \PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object =  PPConnectionManager::getInstance();
     }
@@ -50,7 +51,7 @@ class PPConnectionManagerTest extends \PHPUnit_Framework_TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 

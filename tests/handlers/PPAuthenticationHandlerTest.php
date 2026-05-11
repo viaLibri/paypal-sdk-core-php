@@ -4,15 +4,14 @@ use PayPal\Auth\PPTokenAuthorization;
 use PayPal\Core\PPHttpConfig;
 use PayPal\Core\PPRequest;
 use PayPal\Handler\PPAuthenticationHandler;
+use PHPUnit\Framework\TestCase;
 
-class PPAuthenticationHandlerTest extends PHPUnit_Framework_TestCase {
+class PPAuthenticationHandlerTest extends TestCase {
 	
-	protected function setup() {
-		
+	protected function setUp(): void {
 	}
-	
-	protected function tearDown() {
-	
+
+	protected function tearDown(): void {
 	}
 	
 	/**

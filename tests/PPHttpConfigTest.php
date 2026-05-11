@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Core\PPHttpConfig;
 /**
  * Test class for PPAPIService.
  *
  */
-class PPHttpConfigTest extends PHPUnit_Framework_TestCase
+class PPHttpConfigTest extends TestCase
 {
 
     protected $object;
@@ -19,7 +20,7 @@ class PPHttpConfigTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
 
     }
@@ -28,7 +29,7 @@ class PPHttpConfigTest extends PHPUnit_Framework_TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -115,7 +116,7 @@ class PPHttpConfigTest extends PHPUnit_Framework_TestCase
     	$this->assertEquals('hostname:8081', $curlOpts[CURLOPT_PROXY]);
     	$this->assertEquals('me:secret', $curlOpts[CURLOPT_PROXYUSERPWD]);
 
-    	$this->setExpectedException('PayPal\Exception\PPConfigurationException');
+    	$this->expectException('PayPal\Exception\PPConfigurationException');
     	$o->setHttpProxy('invalid string');
     }
 }

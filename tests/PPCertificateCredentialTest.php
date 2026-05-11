@@ -1,11 +1,12 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Auth\PPCertificateCredential;
 use PayPal\Exception\PPMissingCredentialException;
 /**
  * Test class for PPCertificateCredential.
  *
  */
-class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
+class PPCertificateCredentialTest extends TestCase
 {
 	/**
 	 * @var PPCertificateCredential
@@ -16,7 +17,7 @@ class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->credential = new PPCertificateCredential("platfo_1255077030_biz_api1.gmail.com", "1255077037", "cacert.pem");
 		$this->credential->setApplicationId('APP-80W284485P519543T');
@@ -26,7 +27,7 @@ class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 
@@ -34,7 +35,7 @@ class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testValidateUname()
 	{
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$credUname = new PPCertificateCredential("", "1255077037", "cacert.pem");
 		$credUname->validate();
 		$setNotExpectedException('PPMissingCredentialException');
@@ -47,7 +48,7 @@ class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testValidatePwd()
 	{
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$credpwd = new PPCertificateCredential("platfo_1255077030_biz_api1.gmail.com", "", "cacert.pem");
 		$credpwd->validate();
 
@@ -57,7 +58,7 @@ class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testValidateCertPath()
 	{
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$credCertPath = new PPCertificateCredential("platfo_1255077030_biz_api1.gmail.com", "1255077037", "");
 		$credCertPath->validate();
 	}

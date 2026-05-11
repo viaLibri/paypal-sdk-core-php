@@ -1,4 +1,5 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Auth\PPSignatureCredential;
 use PayPal\Auth\PPTokenAuthorization;
 use PayPal\Auth\PPSubjectAuthorization;
@@ -6,7 +7,7 @@ use PayPal\Auth\PPSubjectAuthorization;
  * Test class for PPSignatureCredential.
  *
  */
-class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
+class PPSignatureCredentialTest extends TestCase
 {
 	/**
 	 * @var PPSignatureCredential
@@ -19,7 +20,7 @@ class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->merchantCredential = new PPSignatureCredential("platfo_1255077030_biz_api1.gmail.com", "1255077037","Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf");
 
@@ -31,7 +32,7 @@ class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 
@@ -40,7 +41,7 @@ class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testValidateUsername()
 	{
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$cred = new PPSignatureCredential("", "1255077037","Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf");
 		$cred->validate();
 	}
@@ -50,7 +51,7 @@ class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testValidatepwd()
 	{
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$cred = new PPSignatureCredential("platfo_1255077030_biz_api1.gmail.com", "","Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf");
 		$cred->validate();
 	}

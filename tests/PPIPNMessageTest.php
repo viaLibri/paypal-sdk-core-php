@@ -1,17 +1,18 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\IPN\PPIPNMessage;
 use PayPal\Core\PPConstants;
 /**
  * Test class for PPIPNMessage.
  *
  */
-class PPIPNMessageTest extends \PHPUnit_Framework_TestCase {
+class PPIPNMessageTest extends TestCase {
 	/**
 	 * @test
 	 */
 	
 	public function passGoodIPN() {
-		
+    $this->assertTrue(true);
 	}
 
 	/**

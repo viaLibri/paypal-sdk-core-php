@@ -1,4 +1,5 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Auth\PPCertificateCredential;
 use PayPal\Auth\PPSubjectAuthorization;
 use PayPal\Auth\PPTokenAuthorization;
@@ -6,14 +7,14 @@ use PayPal\Handler\PPCertificateAuthHandler;
 use PayPal\Core\PPHttpConfig;
 use PayPal\Core\PPRequest;
 
-class PPCertificateAuthHandlerTest extends PHPUnit_Framework_TestCase {
+class PPCertificateAuthHandlerTest extends TestCase {
 	
-	protected function setup() {
-		
+	protected function setUp(): void {
+
 	}
-	
-	protected function tearDown() {
-	
+
+	protected function tearDown(): void {
+
 	}
 	
 	/**
@@ -82,9 +83,9 @@ class PPCertificateAuthHandlerTest extends PHPUnit_Framework_TestCase {
 		$req = new PPRequest(new StdClass(), 'SOAP');
 		$req->setCredential(new PPCertificateCredential('user', 'pass', 'cacert.pem'));
 		$handler->handle($httpConfig, $req, $options);
-		
-		$this->assertContains('<ebl:Username>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Password>', $req->getBindingInfo('securityHeader'));		
+
+		$this->assertStringContainsString('<ebl:Username>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Password>', $req->getBindingInfo('securityHeader'));
 		$this->assertArrayHasKey(CURLOPT_SSLCERT, $httpConfig->getCurlOptions());
 		
 		// Test addition of 'subject' SOAP header for subject based third party auth
@@ -93,10 +94,10 @@ class PPCertificateAuthHandlerTest extends PHPUnit_Framework_TestCase {
 		$cred->setThirdPartyAuthorization(new PPSubjectAuthorization('email@paypal.com'));
 		$req->setCredential($cred);
 		$handler->handle($httpConfig, $req, $options);
-		
-		$this->assertContains('<ebl:Username>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Password>', $req->getBindingInfo('securityHeader'));		
-		$this->assertContains('<ebl:Subject>', $req->getBindingInfo('securityHeader'));
+
+		$this->assertStringContainsString('<ebl:Username>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Password>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Subject>', $req->getBindingInfo('securityHeader'));
 		$this->assertArrayHasKey(CURLOPT_SSLCERT, $httpConfig->getCurlOptions());
 		
 	
@@ -107,7 +108,7 @@ class PPCertificateAuthHandlerTest extends PHPUnit_Framework_TestCase {
 		$req->getCredential()->setThirdPartyAuthorization(new PPTokenAuthorization('token', 'tokenSecret'));		
 		$handler->handle($httpConfig, $req, $options);
 
-		$this->assertContains('<ns:RequesterCredentials/>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ns:RequesterCredentials/>', $req->getBindingInfo('securityHeader'));
 		$this->assertEquals(0, count($httpConfig->getHeaders()));
 		$this->assertArrayHasKey(CURLOPT_SSLCERT, $httpConfig->getCurlOptions());
 	}

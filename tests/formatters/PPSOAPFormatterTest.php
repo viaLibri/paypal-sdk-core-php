@@ -1,12 +1,13 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Core\PPRequest;
 use PayPal\Formatter\PPSOAPFormatter;
 
-class PPSOAPFormatterTest extends PHPUnit_Framework_TestCase {
+class PPSOAPFormatterTest extends TestCase {
 	
 	private $object;
-	
-	public function setup() {
+
+	public function setUp(): void {
 		$this->object = new PPSOAPFormatter();
 	}
 	
@@ -58,7 +59,7 @@ class PPSOAPFormatterTest extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testInvalidCall() {
-		$this->setExpectedException('BadMethodCallException');
+		$this->expectException('BadMethodCallException');
 		$this->object->toObject('somestring');
 	}
 }

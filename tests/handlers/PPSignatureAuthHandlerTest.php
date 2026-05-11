@@ -1,4 +1,5 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 use PayPal\Auth\PPSignatureCredential;
 use PayPal\Auth\PPSubjectAuthorization;
@@ -7,14 +8,14 @@ use PayPal\Core\PPHttpConfig;
 use PayPal\Core\PPRequest;
 use PayPal\Handler\PPSignatureAuthHandler;
 
-class PPSignatureAuthHandlerTest extends PHPUnit_Framework_TestCase {
-	
-	protected function setup() {
-		
+class PPSignatureAuthHandlerTest extends TestCase {
+
+	protected function setUp(): void {
+
 	}
-	
-	protected function tearDown() {
-	
+
+	protected function tearDown(): void {
+
 	}
 	
 	/**
@@ -81,30 +82,30 @@ class PPSignatureAuthHandlerTest extends PHPUnit_Framework_TestCase {
 		$req = new PPRequest(new StdClass(), 'SOAP');
 		$req->setCredential(new PPSignatureCredential('user', 'pass', 'sign'));
 		$handler->handle($httpConfig, $req, $options);
-		
-		$this->assertContains('<ebl:Username>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Password>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Signature>', $req->getBindingInfo('securityHeader'));
-	
+
+		$this->assertStringContainsString('<ebl:Username>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Password>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Signature>', $req->getBindingInfo('securityHeader'));
+
 		// Test addition of 'subject' SOAP header for subject based third party auth
 		$req = new PPRequest(new StdClass(), 'SOAP');
 		$cred = new PPSignatureCredential('user', 'pass', 'sign');
 		$cred->setThirdPartyAuthorization(new PPSubjectAuthorization('email@paypal.com'));
 		$req->setCredential($cred);
 		$handler->handle($httpConfig, $req, $options);
-		
-		$this->assertContains('<ebl:Username>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Password>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Signature>', $req->getBindingInfo('securityHeader'));
-		$this->assertContains('<ebl:Subject>', $req->getBindingInfo('securityHeader'));
-		
-	
+
+		$this->assertStringContainsString('<ebl:Username>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Password>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Signature>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ebl:Subject>', $req->getBindingInfo('securityHeader'));
+
+
 		// Test that no auth related HTTP headers (username, password, sign?) are
 		// added for token based third party auth
 		$req->getCredential()->setThirdPartyAuthorization(new PPTokenAuthorization('token', 'tokenSecret'));		
 		$handler->handle($httpConfig, $req, $options);
 
-		$this->assertContains('<ns:RequesterCredentials/>', $req->getBindingInfo('securityHeader'));
+		$this->assertStringContainsString('<ns:RequesterCredentials/>', $req->getBindingInfo('securityHeader'));
 		$this->assertEquals(0, count($httpConfig->getHeaders()));
 	
 	}

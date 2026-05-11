@@ -20,7 +20,7 @@ class CallTest  {
 		$data = '"request":"test message"';
 
 		$call = new Call();
-		$this->setExpectedException('\PPConnectionException');
+		$this->expectException('\PPConnectionException');
 		$ret = $call->execute('/v1/payments/echo', "POST", $data, $cred);
 
 	}

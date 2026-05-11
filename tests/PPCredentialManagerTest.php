@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Core\PPCredentialManager;
 /**
  * Test class for PPCredentialManager.
  *
  */
-class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
+class PPCredentialManagerTest extends TestCase
 {
 	/**
 	 * @var PPCredentialManager
@@ -39,7 +40,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = PPCredentialManager::getInstance($this->config);
 	}
@@ -48,7 +49,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 
@@ -81,7 +82,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetInvalidCredentialObject()
 	{
-		$this->setExpectedException('PayPal\Exception\PPInvalidCredentialException');
+		$this->expectException('PayPal\Exception\PPInvalidCredentialException');
 		$cred = $this->object->getCredentialObject('invalid_biz_api1.gmail.com');
 	}
 
@@ -147,7 +148,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 	 * @test
 	 */
 	public function testInvalidConfiguration() {
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$o = PPCredentialManager::getInstance(array('mode' => 'sandbox'));
 	}
 }

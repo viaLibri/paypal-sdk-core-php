@@ -1,11 +1,12 @@
 <?php 
+use PHPUnit\Framework\TestCase;
 use PayPal\Auth\Openid\PPOpenIdTokeninfo;
 
 /**
  * Test class for PPOpenIdTokeninfo.
  *
  */
-class PPOpenIdTokeninfoTest extends \PHPUnit_Framework_TestCase {
+class PPOpenIdTokeninfoTest extends TestCase {
 	
 	public $token;
 
@@ -13,7 +14,7 @@ class PPOpenIdTokeninfoTest extends \PHPUnit_Framework_TestCase {
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp() {
+	protected function setUp(): void {
 		$this->token = new PPOpenIdTokeninfo();
 		$this->token->setAccessToken("Access token")
 					->setExpiresIn(900)
@@ -27,7 +28,7 @@ class PPOpenIdTokeninfoTest extends \PHPUnit_Framework_TestCase {
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 	

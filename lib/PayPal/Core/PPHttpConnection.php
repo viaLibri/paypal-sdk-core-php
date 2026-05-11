@@ -94,11 +94,8 @@ class PPHttpConnection
         }
         if (curl_errno($ch)) {
             $ex = new PPConnectionException($this->httpConfig->getUrl(), curl_error($ch), curl_errno($ch));
-            curl_close($ch);
             throw $ex;
         }
-
-        curl_close($ch);
 
         if (in_array($httpStatus, self::$retryCodes)) {
             $ex = new PPConnectionException($this->httpConfig->getUrl(),

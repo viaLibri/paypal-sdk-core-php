@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Formatter\FormatterFactory;
-class FormatterFactoryTest extends PHPUnit_Framework_TestCase {
+class FormatterFactoryTest extends TestCase {
 	
 	/**
 	 * @test
@@ -14,7 +15,7 @@ class FormatterFactoryTest extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testInvalidBinding() {
-		$this->setExpectedException('\InvalidArgumentException');
+		$this->expectException('\InvalidArgumentException');
 		FormatterFactory::factory('Unknown');
 	}
 }

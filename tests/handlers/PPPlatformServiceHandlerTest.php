@@ -1,15 +1,16 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use PayPal\Auth\PPSignatureCredential;
 use PayPal\Core\PPConstants;
 use PayPal\Core\PPHttpConfig;
 use PayPal\Core\PPRequest;
 use PayPal\Handler\PPPlatformServiceHandler;
 
-class PPPlatformServiceHandlerTest extends PHPUnit_Framework_TestCase {
+class PPPlatformServiceHandlerTest extends TestCase {
 
 	private $options;
-	
-	protected function setup() {
+
+	protected function setUp(): void {
 		$this->options = array(
 			'config' => array(
 				'mode' => 'sandbox', 
@@ -24,9 +25,9 @@ class PPPlatformServiceHandlerTest extends PHPUnit_Framework_TestCase {
 			'serviceName' => 'AdaptivePayments', 
 			'apiMethod' => 'ConvertCurrency');
 	}
-	
-	protected function tearDown() {
-	
+
+	protected function tearDown(): void {
+
 	}
 	
 	/**
@@ -115,14 +116,14 @@ class PPPlatformServiceHandlerTest extends PHPUnit_Framework_TestCase {
 	 public function testInvalidConfigurations() {
 		$httpConfig = new PPHttpConfig();
 		$handler = new PPPlatformServiceHandler(null, 'sdkname', 'sdkversion');
-		
-		$this->setExpectedException('PayPal\Exception\PPMissingCredentialException');
+
+		$this->expectException('PayPal\Exception\PPMissingCredentialException');
 		$handler->handle($httpConfig,
 				new PPRequest(new StdClass(), 'NV'),
 				array('config' => array())
 		);
-		
-		$this->setExpectedException('PayPal\Exception\PPConfigurationException');
+
+		$this->expectException('PayPal\Exception\PPConfigurationException');
 		$options = $this->options;
 		unset($options['mode']);
 		$handler->handle($httpConfig,
@@ -144,7 +145,7 @@ class PPPlatformServiceHandlerTest extends PHPUnit_Framework_TestCase {
 
 		$headers = $httpConfig->getHeaders();
 		$this->assertArrayHasKey('X-PAYPAL-REQUEST-SOURCE', $headers);
-		$this->assertRegExp('/.*sdkname.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
-		$this->assertRegExp('/.*sdkversion.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
+		$this->assertMatchesRegularExpression('/.*sdkname.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
+		$this->assertMatchesRegularExpression('/.*sdkversion.*/', $headers['X-PAYPAL-REQUEST-SOURCE']);
 	 }
 }
